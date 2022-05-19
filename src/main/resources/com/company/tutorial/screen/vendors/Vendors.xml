@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://vendors.caption">
+    <data>
+        <collection id="vendorsDc" class="com.company.tutorial.entity.Vendor">
+            <fetchPlan extends="_base"/>
+            <loader id="vendorsDl">
+                <query>
+                    <![CDATA[select e from Vendor e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="productsDc" class="com.company.tutorial.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productsDl">
+                <query>
+                    <![CDATA[select e from Product e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="productDc" class="com.company.tutorial.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productDl"/>
+        </instance>
+        <collection id="stocksDc" class="com.company.tutorial.entity.Stock">
+            <fetchPlan extends="_base"/>
+            <loader id="stocksDl">
+                <query>
+                    <![CDATA[select e from Stock e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <editorScreen id="editorScreen" openMode="DIALOG" screenId="Vendor.edit" onButton="vendorsAdd"
+                      listComponent="vendorsesTable"/>
+        <dataLoadCoordinator auto="true"/>
+        <presentations auto="true" id="presentations">
+            <components>
+                <component id="vendorsesTable"/>
+            </components>
+        </presentations>
+        <notification id="notification"/>
+    </facets>
+    <actions>
+        <action id="action_1"/>
+    </actions>
+    <layout expand="tabSheet">
+    <tabSheet height="100px" id="tabSheet">
+        <tab caption="Vendors catalog" id="tab_1" spacing="true" expand="vendorsesTable">
+            <hbox spacing="true">
+                <groupBox orientation="horizontal" spacing="true" height="100" caption="Actions">
+                    <button id="vendorsAdd" icon="PLUS" align="MIDDLE_LEFT" stylename="icon-only"/>
+                    <button id="vendorsesTableEditBtn" action="vendorsesTable.edit" caption="Edit"
+                            align="MIDDLE_LEFT"/>
+                    <button id="editBtn" caption="Create Order" align="MIDDLE_LEFT"/>
+                    <button id="vendorsesTableRelatedBtn" action="vendorsesTable.related"
+                            caption="Open Related Products" align="MIDDLE_LEFT"/>
+                    <button id="screenAction" caption="Screen Action Refresh Page" align="MIDDLE_RIGHT"/>
+                </groupBox>
+                <filter id="filter" columnsCount="3" dataLoader="vendorsDl" width="800px">
+                    <properties include=".*"/>
+                </filter>
+            </hbox>
+            <table id="vendorsesTable" dataContainer="vendorsDc" height="100%" width="100%"
+                   stylename="h2">
+                <actions>
+                    <action id="related" type="related">
+                        <properties>
+                            <property name="openMode" value="DIALOG"/>
+                            <property name="property" value="product"/>
+                        </properties>
+                    </action>
+                    <action id="edit" type="edit"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="accountNumber"/>
+                    <column id="paymentTerms"/>
+                </columns>
+            </table>
+            <pagination/>
+        </tab>
+        <tab caption="Vendor Profile" id="tab_2" spacing="true" expand="hbox1">
+            <hbox spacing="true" id="hbox1" expand="vbox2">
+                <vbox id="vbox1" expand="groupBox" spacing="true" height="710px">
+                    <label id="label_7" value="Details" stylename="h2"/>
+                    <groupBox orientation="vertical" spacing="true" id="groupBox" width="100%" height="900px"
+                              expand="groupBox_4">
+                        <valuesPicker id="valuesPicker" property="name" align="TOP_RIGHT" caption="Name">
+                            <actions>
+                                <action id="select" type="values_select">
+                                    <properties>
+                                        <property name="entityName" value="Vendor"/>
+                                        <property name="useComboBox" value="true"/>
+                                        <property name="lookupScreenId" value="Vendor.browse"/>
+                                    </properties>
+                                </action>
+                                <action id="clear" type="value_clear"/>
+                            </actions>
+                        </valuesPicker>
+                        <groupBox orientation="vertical" spacing="true" id="groupBox_7"
+                                  stylename="borderless colored"
+                                  caption="Account Number" showAsPanel="true" icon="INFO_CIRCLE">
+                            <label id="label_8"
+                                   value="PLM-568500545"
+                                   width="230px"/>
+                        </groupBox>
+                        <groupBox orientation="vertical" spacing="true" id="groupBox_3" stylename="borderless"
+                                  caption="Contact" showAsPanel="true" icon="ADDRESS_BOOK_O" captionAsHtml="true">
+                            <label id="label_4" value="John Doe"/>
+                            <label id="label_5" value="doe.j@company.com" description="e-mail"/>
+                        </groupBox>
+                        <groupBox orientation="vertical" spacing="true" id="groupBox_1" stylename="borderless"
+                                  caption="Address" showAsPanel="true" icon="font-icon:ADDRESS_CARD">
+                            <label id="label_3"
+                                   value="ETSI 650, Route des Lucioles 06560 Valbonne - Sophia Antipolis FRANCE"
+                                   width="230px"/>
+                        </groupBox>
+                        <groupBox orientation="vertical" spacing="true" id="groupBox_4" stylename="borderless"
+                                  caption="Contract Terms" showAsPanel="true"
+                                  height="300" icon="INFO_CIRCLE">
+                            <label id="label_6"
+                                   value="Payment in Advance"
+                                   width="230px"/>
+                        </groupBox>
+                    </groupBox>
+                </vbox>
+                <vbox spacing="true" id="vbox2" expand="groupBox_6">
+                    <label value="Stock Summary" stylename="h2"/>
+                    <groupBox orientation="horizontal" spacing="true" id="groupBox_2" width="1000">
+                        <groupBox orientation="vertical" spacing="true" id="Number of SKU_3" width="300px"
+                                  caption="Number of SKU" align="MIDDLE_CENTER">
+                            <label id="label" value="20" align="MIDDLE_CENTER" stylename="h2"/>
+                        </groupBox>
+                        <groupBox orientation="vertical" spacing="true" id="outofStock" width="300"
+                                  caption="Out of Stock" align="MIDDLE_CENTER">
+                            <label value="5" align="MIDDLE_CENTER" stylename="h2" id="label_2"/>
+                        </groupBox>
+                        <groupBox orientation="vertical" spacing="true" id="groupBox_5" width="300"
+                                  caption="Low Stock" align="MIDDLE_CENTER" stylename="h2">
+                            <label value="9" align="MIDDLE_CENTER" stylename="h2" id="label_1"/>
+                        </groupBox>
+                    </groupBox>
+                    <groupBox orientation="vertical" spacing="true" id="groupBox_6" width="1000px">                            >
+
+                        <table id="stocksTable" height="100%" width="100%" dataContainer="stocksDc">
+                            <columns>
+                                <column id="ProductName" caption="Product Name"/>
+                                <column id="inStock" caption="in Stock"/>
+                                <column id="booked" caption="Reserved for Sale"/>
+                            </columns>
+                        </table>
+                    </groupBox>
+                </vbox>
+            </hbox>
+        </tab>
+    </tabSheet>
+
+    </layout>
+</window>

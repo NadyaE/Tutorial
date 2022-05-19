@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://purchaseorders.caption">
+    <data>
+        <collection id="purchaseOrdersDc" class="com.company.tutorial.entity.PurchaseOrder">
+            <fetchPlan extends="_base"/>
+            <loader id="purchaseOrdersDl">
+                <query>
+                    <![CDATA[select e from PurchaseOrder e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+
+        <layout expand="groupBox">
+            <groupBox orientation="horizontal" spacing="true" id="groupBox" expand="purchaseOrdersTable">
+                <groupTable id="purchaseOrdersTable" height="100%" width="100%" dataContainer="purchaseOrdersDc">
+                    <actions>
+                        <action id="related" type="related"/>
+                        <action id="create" type="create"/>
+                    </actions>
+                    <buttonsPanel alwaysVisible="true">
+                        <button id="purchaseOrdersTableCreateBtn" action="purchaseOrdersTable.create"/>
+                        <button id="purchaseOrdersTableRelatedBtn" action="purchaseOrdersTable.related"
+                                caption="Open Order Details"/>
+                        <button id="button" caption="Close Selected Order"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="status"/>
+                        <column id="orderNumber"/>
+                        <column id="vendors"/>
+                    </columns>
+                </groupTable>
+            </groupBox>
+        </layout>
+
+</window>

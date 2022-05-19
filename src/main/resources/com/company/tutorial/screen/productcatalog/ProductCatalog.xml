@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://productcatalog.caption">
+    <data>
+        <collection id="productsDc" class="com.company.tutorial.entity.Product">
+            <fetchPlan extends="_base"/>
+            <loader id="productsDl">
+                <query>
+                    <![CDATA[select e from Product e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout expand="split">
+        <split orientation="horizontal" height="100%" width="100%" id="split" box.expandRatio="2.1">
+            <vbox spacing="true" id="ProductTable" expand="productsTable" height="100%">
+                <dataGrid id="productsTable" height="100%" width="100%" dataContainer="productsDc">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit">
+                            <properties>
+                                <property name="openMode" value="DIALOG"/>
+                                <property name="screenId" value="Product.edit"/>
+                            </properties>
+                        </action>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <buttonsPanel alwaysVisible="true" id="productBtnPanel">
+                        <button id="productsTableCreateBtn" action="productsTable.create"/>
+                        <button id="productsTableEditBtn" action="productsTable.edit"/>
+                        <button id="productsTableRemoveBtn" action="productsTable.remove"/>
+                        <textField id="searchMockUpField" inputPrompt="Type Text to Search" align="TOP_RIGHT"/>
+                        <button id="searchMockUpBtn" caption="Search" align="BOTTOM_LEFT"/>
+                    </buttonsPanel>
+                    <columns>
+                        <column id="image" property="image" caption="Image"/>
+                        <column id="productName" property="productName" caption="Product Name"/>
+                        <column id="sku" property="sku" caption="SKU"/>
+                        <column id="unit" property="unit" caption="Unit"/>
+                    </columns>
+                </dataGrid>
+            </vbox>
+            <vbox spacing="true" expand="productInfo" id="details">
+                <groupBox orientation="horizontal" spacing="true" id="productInfo" caption="Product Information"
+                          responsive="true">
+                    <vbox spacing="true" id="vboxProductEntity">
+                        <hbox spacing="true" id="NameHbox" expand="image">
+                            <vbox id="productName">
+                                <hbox spacing="true">
+                                    <label id="productNameLabel" value="Name" stylename="h4" align="MIDDLE_LEFT"/>
+                                    <label value="Product name" id="productNameValue"  align="MIDDLE_LEFT"/>
+                                </hbox>
+                                <hbox spacing="true">
+                                    <label id="skuLabel" value="SKU" stylename="h4" align="MIDDLE_LEFT" />
+                                    <label id="skuValue" value=""  align="MIDDLE_LEFT" />
+                                </hbox>
+                                <vbox id="vbox_2" expand="DescriptionLabel" >
+
+                                    <label stylename="h4" value="Description" id="DescriptionLabel" align="MIDDLE_LEFT"/>
+                                    <label id="descriptionValue" value="" align="MIDDLE_LEFT"/>
+                                </vbox>
+                            </vbox>
+                            <image
+                                    scaleMode="SCALE_DOWN" id="image" width="150px" height="150px" align="MIDDLE_RIGHT">
+                                <resource>
+                                    <url url="https://dtgxwmigmg3gc.cloudfront.net/imagery/assets/derivations/icon/256/256/true/eyJpZCI6ImU4ZmQ4YmU3MDEyMTY1MWNjNGI4ODY3NGU0NjRmZTMyIiwic3RvcmFnZSI6InB1YmxpY19zdG9yZSJ9?signature=d68bfb7910c5c22c7b982e19646fe93757edfd371ba70d4516b3beea7d90ca14"
+                                         mimeType="image/png"/>
+                                </resource>
+                            </image>
+                        </hbox>
+                    </vbox>
+                </groupBox>
+                <groupBox orientation="vertical" id="productPrice" caption="Product Price">
+                    <hbox spacing="true">
+                        <label id="labelPricePerUnit" value="Price per unit" stylename="h4"/>
+                    </hbox>
+                    <hbox spacing="true">
+                        <label id="labelRetailPrice" value="Retail price" stylename="h4"/>
+                    </hbox>
+                    <hbox spacing="true">
+                        <label id="labelCurrency" value="Currency" stylename="h4"/>
+                    </hbox>
+                </groupBox>
+                <groupBox orientation="vertical" id="groupBox" caption="Vendor">
+                    <label id="nameLabel" value="Name" stylename="h4"/>
+                    <label id="labelContractTerms" value="Contract terms" stylename="h4"/>
+                </groupBox>
+                <groupBox orientation="vertical" id="groupBox_1" caption="Stock">
+                    <label id="label_MinStock" value="Minimum stock" stylename="h4"/>
+                    <label id="label_InStock" value="In Stock" stylename="h4"/>
+                    <label id="label_ForSale" value="Reserved for sale" stylename="h4"/>
+                    <label id="label_OnOrder" value="On Purchase Order" stylename="h4"/>
+                    <label id="label_Available" value="Available" stylename="h4"/>
+                </groupBox>
+            </vbox>
+
+        </split>
+    </layout>
+</window>
